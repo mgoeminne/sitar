@@ -1,7 +1,6 @@
 package com.github.mgoeminne.sitar.test.ieeetr
 
 import com.github.mgoeminne.sitar.parser.{Citation, ieeetr}
-import com.github.mgoeminne.sitar.test.ieeetr
 import org.scalatest.{FlatSpec, Matchers}
 
 
