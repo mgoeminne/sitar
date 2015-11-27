@@ -25,6 +25,21 @@ class ACMBookTest extends FlatSpec with Matchers
    }
 
    "Two authors book citation" should "be correctly parsed" in {
+      val citation = "Heckman, J., and Leamer, E., Eds. Handbook of Econometrics. Elsevier, 2007."
+
+      parser.parseAll(parser.citation, citation) match {
+         case parser.Success(matched: Citation,_) => {
+            matched.title shouldBe "Handbook of Econometrics"
+            matched.authors.size shouldBe 2
+            matched.authors shouldEqual Seq("Heckman", "Leamer")
+         }
+
+         case parser.Failure(msg,_) => fail("Parsing failed : " + msg)
+         case parser.Error(msg,_) => fail("Parsing error : " + msg)
+      }
+   }
+
+   it should "be correctly parser, even in the volume is present" in {
       val citation = "Heckman, J., and Leamer, E., Eds. Handbook of Econometrics, vol. 6 of Handbook of Econometrics. Elsevier, 2007."
 
       parser.parseAll(parser.citation, citation) match {

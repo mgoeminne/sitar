@@ -13,6 +13,6 @@ package object acm
    val bookParser = new ACMBookParser()
    val proceedindsParser = bookParser
 
-   val thesisParser = new ACMThesisParser()
+   val thesisParser = new ACMInProceedingsParser()
 
 }

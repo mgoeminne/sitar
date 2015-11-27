@@ -4,8 +4,8 @@ import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
 
 class ACMInProceedingsParser extends CitationParser
 {
-  def lastName: Parser[String] = """[^,]+""".r
-  def firstName: Parser[String] = """[\w-\.]+""".r
+  def lastName: Parser[String] = """[^,]+""".r ^^ { case l => l.split(" ").last}
+  def firstName: Parser[String] = """(\w\.\s?)+""".r
 
   def author: Parser[String] = lastName ~ "," ~ firstName ^^ { case l~","~f => l}
 
