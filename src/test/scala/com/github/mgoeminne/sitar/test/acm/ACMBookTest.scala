@@ -1,22 +1,22 @@
-package com.github.mgoeminne.sitar.test.ieeetr
+package com.github.mgoeminne.sitar.test.acm
 
-import com.github.mgoeminne.sitar.parser.{Citation, ieeetr}
+import com.github.mgoeminne.sitar.parser.{Citation, acm}
 import org.scalatest.{FlatSpec, Matchers}
 
-class IEEETRBookTest extends FlatSpec with Matchers
+class ACMBookTest extends FlatSpec with Matchers
 {
-   val parser = ieeetr.bookParser
+   val parser = acm.bookParser
 
 
    "One author book citation" should "be correctly parsed" in {
-      val citation = "H. Abut, ed., Vector Quantization. IEEE Press, 1990."
+      val citation = "Ross, S. M. On the time to first failure in multicomponent exponential reliability systems. Stochastic Processes and their Applications 4, 2 (1976), 167 – 173."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
             println(matched)
-            matched.title shouldBe "Vector Quantization"
+            matched.title shouldBe "On the time to first failure in multicomponent exponential reliability systems"
             matched.authors.size shouldBe 1
-            matched.authors(0) shouldEqual "Abut"
+            matched.authors(0) shouldEqual "Ross"
          }
 
          case parser.Failure(msg,_) => fail("Parsing failed : " + msg)
@@ -25,7 +25,7 @@ class IEEETRBookTest extends FlatSpec with Matchers
    }
 
    "Two authors book citation" should "be correctly parsed" in {
-      val citation = "J. Heckman and E. Leamer, eds., Handbook of Econometrics, vol. 6 of Handbook of Econometrics. Elsevier, 2007."
+      val citation = "Heckman, J., and Leamer, E., Eds. Handbook of Econometrics, vol. 6 of Handbook of Econometrics. Elsevier, 2007."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -40,7 +40,7 @@ class IEEETRBookTest extends FlatSpec with Matchers
    }
 
    "Three authors book citation" should "be correctly parsed" in {
-      val citation = "B. S. Bloom, J. T. Hastings, and G. F. Madaus, Handbook on Formative and Summative Evolution of Student Learning. New York: McGraw-Hill, 1971."
+      val citation = "Bloom, B. S., Hastings, J. T., and Madaus, G. F. Handbook on Formative and Summative Evolution of Student Learning. McGraw-Hill, New York, 1971."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {

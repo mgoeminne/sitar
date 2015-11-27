@@ -7,6 +7,8 @@
 
 (cf ref 2)
 
+- ieeetr : in progress
+- ieee
 - abbrv
 - abbrvnat
 - acm
