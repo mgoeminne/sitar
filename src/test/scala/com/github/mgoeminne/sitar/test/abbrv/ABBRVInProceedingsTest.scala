@@ -1,12 +1,12 @@
 package com.github.mgoeminne.sitar.test.abbrv
 
-import com.github.mgoeminne.sitar.parser.{Citation, acm}
+import com.github.mgoeminne.sitar.parser.{Citation, abbrv}
 import org.scalatest.{FlatSpec, Matchers}
 
 
 class ABBRVInProceedingsTest extends FlatSpec with Matchers
 {
-   val parser = acm.inProceedingsParser
+   val parser = abbrv.inProceedingsParser
 
    "Single author inproceedings citation" should "be correctly parsed" in {
       val citation = "Scanniello, G. Source code survival with the Kaplan Meier estimator. In Software Maintenance (ICSM), 2011 27th IEEE International Conference on (Sept 2011), pp. 524–527."

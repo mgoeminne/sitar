@@ -1,15 +1,15 @@
 package com.github.mgoeminne.sitar.test.abbrv
 
-import com.github.mgoeminne.sitar.parser.{Citation, acm}
+import com.github.mgoeminne.sitar.parser.{Citation, abbrv}
 import org.scalatest.{FlatSpec, Matchers}
 
 
 class ABBRVTechnicalReportTest extends FlatSpec with Matchers
 {
-   val parser = acm.technicalReportParser
+   val parser = abbrv.technicalReportParser
 
    "One author technical report citation" should "be correctly parsed" in {
-      val citation = "Vanderose, B. Towards a model-centric quality assessment: the mocqa approach. Tech. rep., University of Namur, January 2010."
+      val citation = "B. Vanderose. Towards a model-centric quality assessment: the mocqa approach. Technical report, University of Namur, January 2010."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -24,7 +24,7 @@ class ABBRVTechnicalReportTest extends FlatSpec with Matchers
    }
 
    "Two authors technical report citation" should "be correctly parsed" in {
-      val citation = "Lambert, P., and Doe, J. The title of the work. Tech. Rep. 2, The institution that published, The address of the publisher, 7 1993. An optional note."
+      val citation = "P. Lambert and J. Doe. The title of the work. Technical Report 2, The institution that published, The address of the publisher, 7 1993. An optional note."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -39,7 +39,7 @@ class ABBRVTechnicalReportTest extends FlatSpec with Matchers
    }
 
    "Three authors technical report citation" should "be correctly parsed" in {
-      val citation = "Jain, A. K., Hong, L., and Pankanti, S. Biometrics: Promising frontiers for emerging identification market. Tech. Rep. MSU-CSE-00-2, Department of Computer Science, Michigan State University, East Lansing, Michigan, February 2000."
+      val citation = "A. K. Jain, L. Hong, and S. Pankanti. Biometrics: Promising frontiers for emerging identification market. Technical Report MSU-CSE-00-2, Department of Computer Science, Michigan State University, East Lansing, Michigan, February 2000."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {

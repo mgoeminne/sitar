@@ -1,15 +1,15 @@
 package com.github.mgoeminne.sitar.test.abbrv
 
-import com.github.mgoeminne.sitar.parser.{Citation, acm}
+import com.github.mgoeminne.sitar.parser.{abbrv, Citation}
 import org.scalatest.{FlatSpec, Matchers}
 
 class ABBRVBookTest extends FlatSpec with Matchers
 {
-   val parser = acm.bookParser
+   val parser = abbrv.bookParser
 
 
    "One author book citation" should "be correctly parsed" in {
-      val citation = "Ross, S. M. On the time to first failure in multicomponent exponential reliability systems. Stochastic Processes and their Applications 4, 2 (1976), 167 – 173."
+      val citation = "S. M. Ross. On the time to first failure in multicomponent exponential reliability systems. Stochastic Processes and their Applications, 4(2):167 – 173, 1976."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -25,7 +25,7 @@ class ABBRVBookTest extends FlatSpec with Matchers
    }
 
    "Two authors book citation" should "be correctly parsed" in {
-      val citation = "Heckman, J., and Leamer, E., Eds. Handbook of Econometrics. Elsevier, 2007."
+      val citation = "J. Heckman and E. Leamer, editors. Handbook of Econometrics. Elsevier, 2007."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -40,7 +40,7 @@ class ABBRVBookTest extends FlatSpec with Matchers
    }
 
    it should "be correctly parser, even in the volume is present" in {
-      val citation = "Heckman, J., and Leamer, E., Eds. Handbook of Econometrics, vol. 6 of Handbook of Econometrics. Elsevier, 2007."
+      val citation = "J. Heckman and E. Leamer, editors. Handbook of Econometrics, volume 6 of Handbook of Econometrics. Elsevier, 2007."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -55,7 +55,7 @@ class ABBRVBookTest extends FlatSpec with Matchers
    }
 
    "Three authors book citation" should "be correctly parsed" in {
-      val citation = "Bloom, B. S., Hastings, J. T., and Madaus, G. F. Handbook on Formative and Summative Evolution of Student Learning. McGraw-Hill, New York, 1971."
+      val citation = "B. S. Bloom, J. T. Hastings, and G. F. Madaus. Handbook on Formative and Summative Evolution of Student Learning. McGraw-Hill, New York, 1971."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {

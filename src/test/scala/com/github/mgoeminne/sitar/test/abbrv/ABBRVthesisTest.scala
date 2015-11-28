@@ -1,14 +1,14 @@
 package com.github.mgoeminne.sitar.test.abbrv
 
-import com.github.mgoeminne.sitar.parser.{Citation, acm}
+import com.github.mgoeminne.sitar.parser.{Citation, abbrv}
 import org.scalatest.{FlatSpec, Matchers}
 
 class ABBRVthesisTest extends FlatSpec with Matchers
 {
-   val parser = acm.thesisParser
+   val parser = abbrv.thesisParser
 
    "Single author phd thesis citation" should "be correctly parsed" in {
-      val citation = "van der Spek, P. Managing software evolution in embedded systems. PhD thesis, Vrije Universiteit, Belgium, 2010."
+      val citation = "P. van der Spek. Managing software evolution in embedded systems. PhD thesis, Vrije Universiteit, Belgium, 2010."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -16,9 +16,6 @@ class ABBRVthesisTest extends FlatSpec with Matchers
             matched.authors.size shouldBe 1
             matched.authors(0) shouldBe "Spek"
          }
-
-         case parser.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case parser.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 }

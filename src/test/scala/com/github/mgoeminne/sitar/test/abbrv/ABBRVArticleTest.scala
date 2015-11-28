@@ -1,30 +1,37 @@
 package com.github.mgoeminne.sitar.test.abbrv
 
-import com.github.mgoeminne.sitar.parser.{Citation, acm}
+import com.github.mgoeminne.sitar.parser.{abbrv, Citation}
 import org.scalatest.{FlatSpec, Matchers}
 
 
 class ABBRVArticleTest extends FlatSpec with Matchers
 {
-   val parser = acm.articleParser
+   val parser = abbrv.articleParser
 
    "Single author article citation" should "be correctly parsed" in {
-      val citation = "Sidak, Z. Rectangular confidence regions for the means of multivariate normal distributions. Journal of the American Statistical Association 62, 318 (1967), pp. 626–633."
-
+      val citation = "Z. Sidak. Rectangular confidence regions for the means of multivariate normal distributions. Journal of the American Statistical Association, 62(318):pp. 626–633, 1967."
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
             matched.title shouldBe "Rectangular confidence regions for the means of multivariate normal distributions"
             matched.authors.size shouldBe 1
             matched.authors(0) shouldBe "Sidak"
          }
+      }
+   }
 
-         case parser.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case parser.Error(msg,_) => fail("Parsing error : " + msg)
+   it should "be correctly parsed, even if the author's lastname is composite" in {
+      val citation = "Z. van der Sidak. Rectangular confidence regions for the means of multivariate normal distributions. Journal of the American Statistical Association, 62(318):pp. 626–633, 1967."
+      parser.parseAll(parser.citation, citation) match {
+         case parser.Success(matched: Citation,_) => {
+            matched.title shouldBe "Rectangular confidence regions for the means of multivariate normal distributions"
+            matched.authors.size shouldBe 1
+            matched.authors(0) shouldBe "Sidak"
+         }
       }
    }
 
    "Two authors article citation" should "be correctly parsed" in {
-      val citation = "Kaplan, E. L., and Meier, P. Nonparametric estimation from incomplete observations. Journal of the American Statistical Association 53, 282 (1958), pp. 457–481."
+      val citation = "E. L. Kaplan and P. Meier. Nonparametric estimation from incomplete observations. Journal of the American Statistical Association, 53(282):pp. 457–481, 1958."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -39,7 +46,7 @@ class ABBRVArticleTest extends FlatSpec with Matchers
    }
 
    "Three authors article citation" should "be correclty parsed" in {
-      val citation1 = "Puissant, J. P., Straeten, R. V. D., and Mens, T. Resolving model inconsistencies using automated regression planning. Software and System Modeling 14, 1 (2015), 461–481."
+      val citation1 = "J. P. Puissant, R. V. D. Straeten, and T. Mens. Resolving model inconsistencies using automated regression planning. Software and System Modeling, 14(1):461–481, 2015."
 
       parser.parseAll(parser.citation, citation1) match {
          case parser.Success(matched: Citation,_) => {
@@ -47,9 +54,6 @@ class ABBRVArticleTest extends FlatSpec with Matchers
             matched.authors.size shouldBe 3
             matched.authors shouldEqual Seq("Puissant", "Straeten", "Mens")
          }
-
-         case parser.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case parser.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 }

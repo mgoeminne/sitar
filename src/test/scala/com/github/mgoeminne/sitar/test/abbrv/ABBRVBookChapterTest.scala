@@ -1,15 +1,15 @@
 package com.github.mgoeminne.sitar.test.abbrv
 
-import com.github.mgoeminne.sitar.parser.{Citation, acm}
+import com.github.mgoeminne.sitar.parser.{Citation, abbrv}
 import org.scalatest.{FlatSpec, Matchers}
 
 
 class ABBRVBookChapterTest extends FlatSpec with Matchers
 {
-   val parser = acm.bookChapterParser
+   val parser = abbrv.bookChapterParser
 
    "Single author book chapter citation" should "be correctly parsed" in {
-      val citation = "Kieren, T. E. Rational and fractional numbers: From quotient fields to recursive understanding. In How Students Learn: History, Mathematics, and Science in the Classroom, S. Donnovan and J. D. Bransford, Eds. The National Academies Press, 2005."
+      val citation = "T. E. Kieren. Rational and fractional numbers: From quotient fields to recursive understanding. In S. Donnovan and J. D. Bransford, editors, How Students Learn: History, Mathematics, and Science in the Classroom. The National Academies Press, 2005."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -24,7 +24,7 @@ class ABBRVBookChapterTest extends FlatSpec with Matchers
    }
 
    "Two authors book chapter citation" should "be correctly parsed" in {
-      val citation = "Grégoire, J., and Meerte, G. L’apprentissage des nombres rationnels et ses obstacles. In La dyscalculie Trouble du d ́eveloppement num ́erique de l’enfant. No ̈el, Marie-Pascale, d ́ecembre 2005."
+      val citation = "J. Grégoire and G. Meerte. L’apprentissage des nombres rationnels et ses obstacles. In La dyscalculie Trouble du déeveloppement numéerique de l’enfant. Noël, Marie-Pascale, décembre 2005."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -39,7 +39,7 @@ class ABBRVBookChapterTest extends FlatSpec with Matchers
    }
 
    "Four authors book chapter citation" should "be correclty parsed" in {
-      val citation1 = "Fernandez-Ramil, J., Lozano, A., Wermelinger, M., and Capiluppi, A. Empirical studies of open source evolution. In Software Evolution, T. Mens and S. Demeyer, Eds. 2008, pp. 263–288."
+      val citation1 = "J. Fernandez-Ramil, A. Lozano, M. Wermelinger, and A. Capiluppi. Empirical studies of open source evolution. In T. Mens and S. Demeyer, editors, Software Evolution, pages 263–288. 2008."
 
       parser.parseAll(parser.citation, citation1) match {
          case parser.Success(matched: Citation,_) => {

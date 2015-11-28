@@ -1,15 +1,15 @@
 package com.github.mgoeminne.sitar.test.abbrv
 
-import com.github.mgoeminne.sitar.parser.{Citation, acm}
+import com.github.mgoeminne.sitar.parser.{Citation, abbrv}
 import org.scalatest.{FlatSpec, Matchers}
 
 class ABBRVProceedingsTest extends FlatSpec with Matchers
 {
-   val parser = acm.proceedindsParser
+   val parser = abbrv.proceedindsParser
 
 
    "One author proceedings citation" should "be correctly parsed" in {
-      val citation = "Werner, B., Ed. Proceedings of the 17th European Conference on Software Maintenance and Reengi- neering (Genova, Italy, March 2013), IEEE Computer Society."
+      val citation = "B. Werner, editor. Proceedings of the 17th European Conference on Software Maintenance and Reengineering, Genova, Italy, March 2013. IEEE Computer Society."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -24,7 +24,7 @@ class ABBRVProceedingsTest extends FlatSpec with Matchers
    }
 
    "Two authors proceedinds citation" should "be correctly parsed" in {
-      val citation = "Litoiu, M., and Mylopoulos, J., Eds. Proceedings of the 8th International Symposium on Software Engineering for Adaptive and Self-Managing Systems. SEAMS 2013, San Francisco, CA, USA, May 20-21, 2013 (2013), IEEE / ACM."
+      val citation = "M. Litoiu and J. Mylopoulos, editors. Proceedings of the 8th International Symposium on Software Engineering for Adaptive and Self-Managing Systems. SEAMS 2013, San Francisco, CA, USA, May 20-21, 2013. IEEE / ACM, 2013."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -39,7 +39,7 @@ class ABBRVProceedingsTest extends FlatSpec with Matchers
    }
 
    "Four authors proceedings citation" should "be correctly parsed" in {
-      val citation = "Mens, T., Claes, M., Drobisz, S., and Goeminne, M., Eds. BENEVOL 2013 Software Evolution Research Seminar (December 2013)."
+      val citation = "T. Mens, M. Claes, S. Drobisz, and M. Goeminne, editors. BENEVOL 2013 Software Evolution Research Seminar, December 2013."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {

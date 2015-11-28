@@ -7,11 +7,11 @@
 
 (cf ref 2)
 
-- ieeetr : in progress
+- ieeetr : done
 - ieee
-- abbrv
+- abbrv  : in progress
 - abbrvnat
-- acm
+- acm    : in progress
 - alpha
 - amsalpha
 - amsplain

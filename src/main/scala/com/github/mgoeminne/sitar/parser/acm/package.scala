@@ -1,8 +1,8 @@
 package com.github.mgoeminne.sitar.parser
 
-import com.github.mgoeminne.sitar.parser.ieeetr.{IEEETRThesisParser, IEEETRBookParser, IEEETRInProceedingsParser}
-
-
+/**
+  * Citation parsers for the acm style.
+  */
 package object acm
 {
    val inProceedingsParser = new ACMInProceedingsParser()
@@ -13,6 +13,6 @@ package object acm
    val bookParser = new ACMBookParser()
    val proceedindsParser = bookParser
 
-   val thesisParser = new ACMInProceedingsParser()
+   val thesisParser = inProceedingsParser
 
 }

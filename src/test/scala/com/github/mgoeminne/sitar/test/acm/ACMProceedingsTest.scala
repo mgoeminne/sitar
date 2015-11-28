@@ -9,7 +9,7 @@ class ACMProceedingsTest extends FlatSpec with Matchers
 
 
    "One author proceedings citation" should "be correctly parsed" in {
-      val citation = "Werner, B., Ed. Proceedings of the 17th European Conference on Software Maintenance and Reengi- neering (Genova, Italy, March 2013), IEEE Computer Society."
+      val citation = "Werner, B., Ed. Proceedings of the 17th European Conference on Software Maintenance and Reengineering (Genova, Italy, March 2013), IEEE Computer Society."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
