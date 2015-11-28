@@ -13,10 +13,21 @@ class IEEETRBookTest extends FlatSpec with Matchers
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
-            println(matched)
             matched.title shouldBe "Vector Quantization"
             matched.authors.size shouldBe 1
             matched.authors(0) shouldEqual "Abut"
+         }
+      }
+   }
+
+   "Two authors book citation" should "be correctly parsed" in {
+      val citation = "J. Heckman and E. Leamer, eds., Handbook of Econometrics. Elsevier, 2007."
+
+      parser.parseAll(parser.citation, citation) match {
+         case parser.Success(matched: Citation,_) => {
+            matched.title shouldBe "Handbook of Econometrics"
+            matched.authors.size shouldBe 2
+            matched.authors shouldEqual Seq("Heckman", "Leamer")
          }
 
          case parser.Failure(msg,_) => fail("Parsing failed : " + msg)
@@ -24,7 +35,7 @@ class IEEETRBookTest extends FlatSpec with Matchers
       }
    }
 
-   "Two authors book citation" should "be correctly parsed" in {
+   "Two authors book citation" should "be correctly parsed, even if it has a volume" in {
       val citation = "J. Heckman and E. Leamer, eds., Handbook of Econometrics, vol. 6 of Handbook of Econometrics. Elsevier, 2007."
 
       parser.parseAll(parser.citation, citation) match {

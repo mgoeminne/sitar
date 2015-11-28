@@ -9,15 +9,13 @@ class IEEETRBookParser extends CitationParser
 {
    def lastname: Parser[String] = """\p{Lu}\w*""".r
    def firstname: Parser[String] = rep("""\p{Lu}\.""".r) ^^ { case f => f.mkString(" ")}
-   def editor: Parser[String] = opt(""",\s+ed(s)?\.,\s+""".r) ^^ { case e => e.getOrElse("")}
+   def editor: Parser[String] = "," ~ opt("""ed(s)?\.,\s+""".r) ^^ { case "," ~ e => e.getOrElse("")}
 
-   def author: Parser[String]   = firstname ~ lastname ^^ {case f~l => l}
+   def author: Parser[String]   = firstname ~ lastname ^^ {case f~l => println(l); l}
 
-   def authors: Parser[Seq[String]]  = (rep(author~",")~"and"~author~",") ^^ {case a~"and"~b~"," => a.map(_._1) :+ b} |
+   def authors: Parser[Seq[String]]  = (rep(author~",")~"and"~author) ^^ {case a~"and"~b => a.map(_._1) :+ b} |
                                        author~"and"~author ^^ {case a~"and"~b => Seq(a,b)} |
-                                       author ^^ { case s => println(s); Seq(s) }
-
-   //def author_block: Parser[Seq[String]] = [^,]+""".r.andThen()
+                                       author ^^ { case s =>Seq(s) }
 
    def title: Parser[String]    = """[^.,]+""".r ^^ {case t => t.replaceAll("""\s+""", " ").stripSuffix(""", vol""")}
    def rest: Parser[Any]            = """.*""".r

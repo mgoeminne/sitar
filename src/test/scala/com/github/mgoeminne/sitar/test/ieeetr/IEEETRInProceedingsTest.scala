@@ -9,7 +9,7 @@ class IEEETRInProceedingsTest extends FlatSpec with Matchers
    val parser = ieeetr.inProceedingsParser
 
    "Single author inproceedings citation" should "be correctly parsed" in {
-      val citation = "G.  Scanniello,  “Source  code  survival  with  the  Kaplan  Meier estimator,” in Int’l Conf. Software Maintenance , 2011, pp. 524– 527."
+      val citation = "G. Scanniello, “Source code survival with the Kaplan Meier estimator,” in Int’l Conf. Software Maintenance , 2011, pp. 524– 527."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -24,7 +24,7 @@ class IEEETRInProceedingsTest extends FlatSpec with Matchers
    }
 
    "Two authors inproceedings citation" should "be correctly parsed" in {
-      val citation = "P.  Kyriakakis  and  A.  Chatzigeorgiou,  “Maintenance  patterns of  large-scale  PHP  web  applications,”  in Int’l  Conf.  Software Maintenance and Evolution , 2014, pp. 381–390."
+      val citation = "P. Kyriakakis and A. Chatzigeorgiou, “Maintenance patterns of large-scale PHP web applications,” in Int’l  Conf.  Software Maintenance and Evolution , 2014, pp. 381–390."
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
@@ -39,7 +39,7 @@ class IEEETRInProceedingsTest extends FlatSpec with Matchers
    }
 
    "Three authors inproceedings citation" should "be correclty parsed" in {
-      val citation1 = "D.  Qiu,  B.  Li, and  Z.  Su,  “An  empirical  analysis  of  the  co-evolution of schema and code in database applications,” in Joint ESEC/FSE Conf. ACM , 2013."
+      val citation1 = "D. Qiu, B. Li, and  Z.  Su,  “An empirical analysis of the co-evolution of schema and code in database applications,” in Joint ESEC/FSE Conf. ACM , 2013."
 
       parser.parseAll(parser.citation, citation1) match {
          case parser.Success(matched: Citation,_) => {
