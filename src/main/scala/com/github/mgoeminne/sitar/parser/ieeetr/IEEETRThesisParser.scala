@@ -2,7 +2,7 @@ package com.github.mgoeminne.sitar.parser.ieeetr
 
 import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
 
-class IEEETRThesisParser  extends CitationParser
+class IEEETRThesisParser extends CitationParser
 {
    def author: Parser[String]   = """[^,]+""".r ^^ {case s => s.split(" ").last.trim}
 

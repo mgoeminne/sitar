@@ -7,14 +7,21 @@ import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
   */
 class IEEETRBookParser extends CitationParser
 {
-   def author: Parser[Seq[String]]   = """[^,]+""".r ^^ {case s => s.split(" and ").toList.map(_.trim.split("""\s""").last.trim)}
+   def lastname: Parser[String] = """\p{Lu}\w*""".r
+   def firstname: Parser[String] = rep("""\p{Lu}\.""".r) ^^ { case f => f.mkString(" ")}
+   def editor: Parser[String] = opt(""",\s+ed(s)?\.,\s+""".r) ^^ { case e => e.getOrElse("")}
 
-   def authors: Parser[Seq[String]]  = (rep(author~",")~"and"~author) ^^ {case l~"and"~e => l.map(_._1).flatten ++ e} |
-                                       author ^^ { case s => println(s); s }
+   def author: Parser[String]   = firstname ~ lastname ^^ {case f~l => l}
 
-   def title: Parser[String]    = """[^,]+""".r ^^ {case t => t.replaceAll("""\s+""", " ").replaceAll(""",\svol\s\d+.*""", "")}
-   def rest: Parser[Any]     = """.*""".r
+   def authors: Parser[Seq[String]]  = (rep(author~",")~"and"~author~",") ^^ {case a~"and"~b~"," => a.map(_._1) :+ b} |
+                                       author~"and"~author ^^ {case a~"and"~b => Seq(a,b)} |
+                                       author ^^ { case s => println(s); Seq(s) }
 
-   def citation: Parser[Citation] = authors~""", ed(s)?\.,""".r~title~"."~rest ^^ { case a~s~t~"."~r => Citation(a, t) }
+   //def author_block: Parser[Seq[String]] = [^,]+""".r.andThen()
+
+   def title: Parser[String]    = """[^.,]+""".r ^^ {case t => t.replaceAll("""\s+""", " ").stripSuffix(""", vol""")}
+   def rest: Parser[Any]            = """.*""".r
+
+   def citation: Parser[Citation] = authors~editor~title~""",|\.""".r~rest ^^ { case a~e~t~sep~r => Citation(a, t) }
 
 }
