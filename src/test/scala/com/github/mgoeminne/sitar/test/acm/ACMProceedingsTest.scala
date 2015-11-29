@@ -13,13 +13,9 @@ class ACMProceedingsTest extends FlatSpec with Matchers
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
-            matched.title shouldBe "Proceedings of the 17th European Conference on Software Maintenance and Reengineering"
-            matched.authors.size shouldBe 1
             matched.authors(0) shouldEqual "Werner"
+            matched.title shouldBe "Proceedings of the 17th European Conference on Software Maintenance and Reengineering"
          }
-
-         case parser.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case parser.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -29,7 +25,6 @@ class ACMProceedingsTest extends FlatSpec with Matchers
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
             matched.title shouldBe "Proceedings of the 8th International Symposium on Software Engineering for Adaptive and Self-Managing Systems"
-            matched.authors.size shouldBe 2
             matched.authors shouldEqual Seq("Litoiu", "Mylopoulos")
          }
 
@@ -43,9 +38,8 @@ class ACMProceedingsTest extends FlatSpec with Matchers
 
       parser.parseAll(parser.citation, citation) match {
          case parser.Success(matched: Citation,_) => {
-            matched.title shouldBe "BENEVOL 2013 Software Evolution Research Seminar"
-            matched.authors.size shouldBe 4
             matched.authors shouldEqual Seq("Mens", "Claes", "Drobisz", "Goeminne")
+            matched.title shouldBe "BENEVOL 2013 Software Evolution Research Seminar"
          }
 
          case parser.Failure(msg,_) => fail("Parsing failed : " + msg)
