@@ -14,8 +14,8 @@ class ACMProceedingsParser extends CitationParser
 
    def authors: Parser[Seq[String]] =   rep1sep(author, ",") |
                                         author ~ ", and" ~ author ^^ { case a ~ ", and" ~ b  => Seq(a,b)} |
-                                        author ^^ { case a => println(a); Seq(a) }
-   def editor: Parser[String] = opt(""", Ed(s)?\.""".r) ^^ { case e => println(e);e.getOrElse("")}
+                                        author ^^ { case a => Seq(a) }
+   def editor: Parser[String] = opt(""", Ed(s)?\.""".r) ^^ { case e => e.getOrElse("")}
 
 
    def title: Parser[String]    = """[^\.\(]+""".r ^^ {case t => t.trim}

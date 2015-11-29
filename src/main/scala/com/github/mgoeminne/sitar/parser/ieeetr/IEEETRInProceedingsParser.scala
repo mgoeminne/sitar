@@ -12,5 +12,3 @@ class IEEETRInProceedingsParser extends CitationParser
   def rest: Parser[Any]     = """.*""".r
   def citation: Parser[Citation] = authors~","~"“"~title~"”"~rest ^^ { case a~","~"“"~t~"”"~r => Citation(a, t) }
 }
-
-
