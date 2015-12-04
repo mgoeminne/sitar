@@ -1,9 +1,17 @@
 package com.github.mgoeminne.sitar.parser
 
 /**
-  * Created by mg on 27/11/15.
+  * Citation parsers for the abbrv style.
   */
 package object abbrv
 {
+   val inProceedingsParser = new ABBRVInProceedingsParser()
+   val technicalReportParser = inProceedingsParser
 
+   val articleParser = new ABBRVArticleParser()
+   val bookChapterParser = articleParser
+   val thesisParser = articleParser
+
+   val bookParser = new ABBRVBookParser()
+   val proceedindsParser = bookParser
 }

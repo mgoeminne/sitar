@@ -4,6 +4,7 @@ import java.io.{InputStream, FileInputStream, File}
 import java.net.URL
 import java.text.Normalizer
 
+import com.github.mgoeminne.sitar.parser.{acm, ieeetr}
 import org.apache.pdfbox.pdfparser.PDFParser
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.util.PDFTextStripper
@@ -64,19 +65,16 @@ object Main
       //extractCitations(url.openStream())
       //extractCitations(new FileInputStream(new File("/Users/mg/Downloads/b.pdf")))
       //extractCitations(new FileInputStream(new File("/Users/mg/Downloads/1306.6262.pdf")))
-      extractCitations(new FileInputStream(new File("/Users/mg/Documents/doctorat/ressources électroniques/classés/phdthesis/Goeminne - Understanding the Evolution of Socio-technical Aspects in Open Source Ecosystems An Empirical Analysis of GNOME.pdf")))
+      //val citations = extractCitations(new FileInputStream(new File("/Users/mg/Documents/doctorat/ressources électroniques/classés/phdthesis/Goeminne - Understanding the Evolution of Socio-technical Aspects in Open Source Ecosystems An Empirical Analysis of GNOME.pdf")))
+      val citations = extractCitations(new FileInputStream(new File("/Users/mg/Documents/doctorat/ressources électroniques/classés/inproceedings/Capiluppi - Developing an h-index for OSS developers.pdf")))
+
+      citations.map(ieeetr.parse) foreach println
    }
 
-   def extractCitations(stream: InputStream): Seq[Paper] =
+   def extractCitations(stream: InputStream): Seq[String] =
    {
       val content = extractContent(stream)
-      val citations = extractReferenceContent(content)
-      citations foreach println
-
-      //ParsCit for identifying titles and authors?
-
-
-      Seq.empty
+      extractReferenceContent(content)
    }
 
    /**
@@ -208,6 +206,7 @@ object Main
          ("u´", "ú"),
          ("o´", "ó"),
          ("i´", "í"),
+         ("ı´", "í"),
          ("e´", "é"),
          ("a`", "à"),
          ("u`", "ù"),
