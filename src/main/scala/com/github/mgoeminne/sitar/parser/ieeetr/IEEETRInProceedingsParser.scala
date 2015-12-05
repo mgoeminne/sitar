@@ -2,7 +2,7 @@ package com.github.mgoeminne.sitar.parser.ieeetr
 
 import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
 
-class IEEETRInProceedingsParser extends CitationParser
+private[ieeetr] class IEEETRInProceedingsParser extends CitationParser
 {
   def author: Parser[Seq[String]]   = """(?!and)[^,“]+(?!and)""".r ^^ {case s => s.split(" and ").toList.map(_.trim.split("""\s""").last.trim)}
   def authors: Parser[Seq[String]]  = (rep(author~",")~"and"~author) ^^ {case l~"and"~e => l.map(_._1).flatten ++ e} |

@@ -2,7 +2,7 @@ package com.github.mgoeminne.sitar.parser.abbrv
 
 import com.github.mgoeminne.sitar.parser.{CitationParser, Citation}
 
-class ABBRVInProceedingsParser extends CitationParser
+private[abbrv] class ABBRVInProceedingsParser extends CitationParser
 {
    def firstname = """[^\.]""".r  ^^ {case f => f}
    def lastname  = """[^\.,\s]+""".r ^^ {case l => println(l) ; l}

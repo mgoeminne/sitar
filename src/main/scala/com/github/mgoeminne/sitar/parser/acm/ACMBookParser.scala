@@ -3,9 +3,9 @@ package com.github.mgoeminne.sitar.parser.acm
 import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
 
 /**
-  * ieeetr style for book citation
+  * acm style for book citation
   */
-class ACMBookParser extends CitationParser
+private[acm] class ACMBookParser extends CitationParser
 {
    def lastName: Parser[String] = """[^,]+""".r ^^ { case l => l.split(" ").last}
    def firstName: Parser[String] = """([A-Z]\.\s?)+""".r
@@ -13,8 +13,8 @@ class ACMBookParser extends CitationParser
    def author: Parser[String] = lastName ~ "," ~ firstName ^^ { case l~","~f => l}
 
    def authors: Parser[Seq[String]] =   rep(author ~ ",") ~ "and" ~ author ^^ { case a ~ "and" ~ c => a.map(_._1) :+ c} |
-                                        author ~ ", and" ~ author ^^ { case a ~ ", and" ~ b  => Seq(a,b)} |
-                                        author ^^ { case a => Seq(a) }
+      author ~ ", and" ~ author ^^ { case a ~ ", and" ~ b  => Seq(a,b)} |
+      author ^^ { case a => Seq(a) }
    def editor: Parser[String] = opt(""", Ed(s)?\.""".r) ^^ { case e => println(e);e.getOrElse("")}
 
 

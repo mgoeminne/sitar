@@ -1,9 +1,12 @@
-package com.github.mgoeminne.sitar.parser
+package com.github.mgoeminne.sitar.parser.acm
+
+import com.github.mgoeminne.sitar.parser.StyleParser
+
 
 /**
   * Citation parsers for the acm style.
   */
-package object acm extends StyleParser
+object parser extends StyleParser
 {
    val inProceedingsParser = new ACMInProceedingsParser()
    val articleParser = inProceedingsParser
@@ -14,6 +17,6 @@ package object acm extends StyleParser
    val bookParser = new ACMBookParser()
 
    val proceedindsParser = new ACMProceedingsParser()
-
-
 }
+
+

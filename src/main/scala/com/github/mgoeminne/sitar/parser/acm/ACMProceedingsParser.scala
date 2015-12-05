@@ -3,9 +3,9 @@ package com.github.mgoeminne.sitar.parser.acm
 import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
 
 /**
-  * ieeetr style for book citation
+  * acm style for book citation
   */
-class ACMProceedingsParser extends CitationParser
+private[acm] class ACMProceedingsParser extends CitationParser
 {
    def lastName: Parser[String] = """[^,]+""".r ^^ { case l => l.split(" ").last}
    def firstName: Parser[String] = """([A-Z]\.\s?)+""".r

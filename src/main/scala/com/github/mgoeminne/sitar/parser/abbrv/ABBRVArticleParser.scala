@@ -2,7 +2,7 @@ package com.github.mgoeminne.sitar.parser.abbrv
 
 import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
 
-class ABBRVArticleParser extends CitationParser
+private[abbrv] class ABBRVArticleParser extends CitationParser
 {
    def author: Parser[String] = """\p{Lu}\w+(\.|\s|,)""".r
 

@@ -1,7 +1,5 @@
 package com.github.mgoeminne.sitar.parser
 
-import com.github.mgoeminne.sitar.parser.acm.{ACMProceedingsParser, ACMBookParser, ACMInProceedingsParser}
-
 /**
   * Defines a parser of a particular style of citation.
   */

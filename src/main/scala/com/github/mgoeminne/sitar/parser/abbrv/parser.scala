@@ -1,9 +1,9 @@
-package com.github.mgoeminne.sitar.parser
+package com.github.mgoeminne.sitar.parser.abbrv
 
 /**
   * Citation parsers for the abbrv style.
   */
-package object abbrv
+object parser
 {
    val inProceedingsParser = new ABBRVInProceedingsParser()
    val technicalReportParser = inProceedingsParser

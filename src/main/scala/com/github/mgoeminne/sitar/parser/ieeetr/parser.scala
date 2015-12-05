@@ -1,11 +1,11 @@
-package com.github.mgoeminne.sitar.parser
+package com.github.mgoeminne.sitar.parser.ieeetr
 
-import org.apache.pdfbox.pdmodel.graphics.predictor.None
+import com.github.mgoeminne.sitar.parser.StyleParser
 
 /**
   * Citation parsers for the ieeetr style.
   */
-package object ieeetr extends StyleParser
+object parser extends StyleParser
 {
    val inProceedingsParser = new IEEETRInProceedingsParser()
    val articleParser = inProceedingsParser

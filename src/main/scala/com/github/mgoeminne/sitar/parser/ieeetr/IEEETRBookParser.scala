@@ -5,7 +5,7 @@ import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
 /**
   * ieeetr style for book citation
   */
-class IEEETRBookParser extends CitationParser
+private[ieeetr] class IEEETRBookParser extends CitationParser
 {
    def lastname: Parser[String] = """\p{Lu}\w*""".r
    def firstname: Parser[String] = rep("""\p{Lu}\.""".r) ^^ { case f => f.mkString(" ")}

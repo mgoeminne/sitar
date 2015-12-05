@@ -2,9 +2,9 @@ package com.github.mgoeminne.sitar
 
 import java.io.{InputStream, FileInputStream, File}
 import java.net.URL
-import java.text.Normalizer
 
-import com.github.mgoeminne.sitar.parser.{acm, ieeetr}
+import com.github.mgoeminne.sitar.parser.{ieeetr, acm}
+
 import org.apache.pdfbox.pdfparser.PDFParser
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.util.PDFTextStripper
@@ -68,7 +68,8 @@ object Main
       //val citations = extractCitations(new FileInputStream(new File("/Users/mg/Documents/doctorat/ressources électroniques/classés/phdthesis/Goeminne - Understanding the Evolution of Socio-technical Aspects in Open Source Ecosystems An Empirical Analysis of GNOME.pdf")))
       val citations = extractCitations(new FileInputStream(new File("/Users/mg/Documents/doctorat/ressources électroniques/classés/inproceedings/Capiluppi - Developing an h-index for OSS developers.pdf")))
 
-      citations.map(ieeetr.parse) foreach println
+      val styleParsers = Seq(ieeetr.parser, acm.parser)
+      citations.map(ieeetr.parser.parse) foreach println
    }
 
    def extractCitations(stream: InputStream): Seq[String] =

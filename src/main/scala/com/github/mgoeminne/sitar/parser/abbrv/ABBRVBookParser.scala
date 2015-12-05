@@ -2,7 +2,7 @@ package com.github.mgoeminne.sitar.parser.abbrv
 
 import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
 
-class ABBRVBookParser extends CitationParser
+private[abbrv] class ABBRVBookParser extends CitationParser
 {
    def lastName: Parser[String] = """[^,]+""".r ^^ { case l => l.split(" ").last}
    def firstName: Parser[String] = """(\w\.\s?)+""".r
