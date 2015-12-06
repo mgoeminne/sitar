@@ -5,7 +5,7 @@ import org.scalatest.{FlatSpec, Matchers}
 
 class IEEETRProceedingsTest extends FlatSpec with Matchers
 {
-   val p = parser.proceedindsParser
+   val p = parser.proceedingsParser
 
 
    "One author proceedings citation" should "be correctly parsed" in {

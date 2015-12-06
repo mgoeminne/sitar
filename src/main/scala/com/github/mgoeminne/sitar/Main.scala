@@ -69,7 +69,9 @@ object Main
       val citations = extractCitations(new FileInputStream(new File("/Users/mg/Documents/doctorat/ressources électroniques/classés/inproceedings/Capiluppi - Developing an h-index for OSS developers.pdf")))
 
       val styleParsers = Seq(ieeetr.parser, acm.parser)
-      citations.map(ieeetr.parser.parse) foreach println
+      styleParsers foreach println
+
+      //citations.map(ieeetr.parser.parse) foreach println
    }
 
    def extractCitations(stream: InputStream): Seq[String] =

@@ -33,7 +33,7 @@ trait StyleParser
    /**
      * @return a citation parser for proceedinds citations
      */
-   def proceedindsParser      : CitationParser
+   def proceedingsParser      : CitationParser
 
    /**
      * @return a citation parser for thesis citations
@@ -45,7 +45,7 @@ trait StyleParser
      */
    private def parsers: Seq[CitationParser] = Seq( inProceedingsParser, articleParser,
                                                    bookChapterParser, technicalReportParser,
-                                                   bookParser, proceedindsParser)
+                                                   bookParser, proceedingsParser)
 
    /**
      * Tries to parse a citation using a parser for a particular style of citation.

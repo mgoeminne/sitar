@@ -16,7 +16,9 @@ object parser extends StyleParser
 
    val bookParser = new ACMBookParser()
 
-   val proceedindsParser = new ACMProceedingsParser()
+   val proceedingsParser = new ACMProceedingsParser()
+
+   override def toString = "acm"
 }
 
 

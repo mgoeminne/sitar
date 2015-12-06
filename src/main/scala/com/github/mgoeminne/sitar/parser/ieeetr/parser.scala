@@ -13,8 +13,10 @@ object parser extends StyleParser
    val technicalReportParser = inProceedingsParser
 
    val bookParser = new IEEETRBookParser()
-   val proceedindsParser = bookParser
+   val proceedingsParser = bookParser
 
    val thesisParser = new IEEETRThesisParser()
+
+   override def toString = "ieeetr"
 }
 
