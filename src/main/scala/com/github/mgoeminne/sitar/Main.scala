@@ -3,7 +3,7 @@ package com.github.mgoeminne.sitar
 import java.io.{InputStream, FileInputStream, File}
 import java.net.URL
 
-import com.github.mgoeminne.sitar.parser.{ieeetr, acm}
+import com.github.mgoeminne.sitar.parser.{Citation, ieeetr, acm}
 
 import org.apache.pdfbox.pdfparser.PDFParser
 import org.apache.pdfbox.pdmodel.PDDocument
@@ -17,7 +17,7 @@ import scala.collection.JavaConversions._
   */
 object Main
 {
-   def findPaper(p: Paper): Option[URL] =
+   def findPaper(p: Citation): Option[URL] =
    {
       val url = """https://scholar.google.com/scholar?q="""" + p.title.replaceAll(" ", "+") + """""""
       println(url)
@@ -49,16 +49,16 @@ object Main
 
           val url = Option(entry.select("div#gs_ggsW0").first())
                      .map(element => element.select("a[href]").first.attr("abs:href"))
-         (Paper(title, authors) , url)
+         (Citation(title, authors) , url)
       })
 
-      candidates.find(c => Paper.similar(c._1, p) && c._2.isDefined)
+      candidates.find(c => Citation.similar(c._1, p) && c._2.isDefined)
                 .map(c => new URL(c._2.get))
    }
 
    def main(args: Array[String])
    {
-      val paper = Paper("A study of library migration in java software",
+      val paper = Citation("A study of library migration in java software",
                         Seq("Teyton", "Falleri", "Palyart", "Blanc"))
 
       val url = new URL("http://arxiv.org/pdf/1306.6262")

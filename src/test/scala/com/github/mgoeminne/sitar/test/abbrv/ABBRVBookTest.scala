@@ -13,7 +13,6 @@ class ABBRVBookTest extends FlatSpec with Matchers
 
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
-            println(matched)
             matched.title shouldBe "On the time to first failure in multicomponent exponential reliability systems"
             matched.authors.size shouldBe 1
             matched.authors(0) shouldEqual "Ross"

@@ -7,5 +7,5 @@ private[ieeetr] class IEEETRThesisParser extends CitationParser
    def author: Parser[String]   = """[^,]+""".r ^^ {case s => s.split(" ").last.trim}
 
    def title: Parser[String]     = """.*""".r ^^ {case t => t.split("PhD thesis").head.trim.stripSuffix(".")}
-   def citation: Parser[Citation] = author~","~title ^^ { case a~","~t => Citation(Seq(a), t) }
+   def citation: Parser[Citation] = author~","~title ^^ { case a~","~t => Citation(t, Seq(a)) }
 }

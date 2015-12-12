@@ -11,7 +11,7 @@ private[ieeetr] class IEEETRBookParser extends CitationParser
    def firstname: Parser[String] = rep("""\p{Lu}\.""".r) ^^ { case f => f.mkString(" ")}
    def editor: Parser[String] = "," ~ opt("""ed(s)?\.,\s+""".r) ^^ { case "," ~ e => e.getOrElse("")}
 
-   def author: Parser[String]   = firstname ~ lastname ^^ {case f~l => println(l); l}
+   def author: Parser[String]   = firstname ~ lastname ^^ {case f~l => l}
 
    def authors: Parser[Seq[String]]  = (rep(author~",")~"and"~author) ^^ {case a~"and"~b => a.map(_._1) :+ b} |
                                        author~"and"~author ^^ {case a~"and"~b => Seq(a,b)} |
@@ -20,6 +20,6 @@ private[ieeetr] class IEEETRBookParser extends CitationParser
    def title: Parser[String]    = """[^.,]+""".r ^^ {case t => t.replaceAll("""\s+""", " ").stripSuffix(""", vol""")}
    def rest: Parser[Any]            = """.*""".r
 
-   def citation: Parser[Citation] = authors~editor~title~""",|\.""".r~rest ^^ { case a~e~t~sep~r => Citation(a, t) }
+   def citation: Parser[Citation] = authors~editor~title~""",|\.""".r~rest ^^ { case a~e~t~sep~r => Citation(t, a) }
 
 }

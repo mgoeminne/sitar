@@ -15,6 +15,6 @@ private[abbrv] class ABBRVBookParser extends CitationParser
 
    def title: Parser[String]    = """((?!\.\s).)*""".r
    def rest: Parser[Any]     = """.*""".r
-   def citation: Parser[Citation] = authors~opt(""", Eds?\.""".r)~title~"."~rest ^^ { case a~e~t~"."~r => Citation(a, t) }
+   def citation: Parser[Citation] = authors~opt(""", Eds?\.""".r)~title~"."~rest ^^ { case a~e~t~"."~r => Citation(t, a) }
 
 }
