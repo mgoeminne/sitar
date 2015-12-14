@@ -5,10 +5,14 @@ import java.text.Normalizer
 /**
   * A representation of a scientific paper
   */
-case class Citation(title: String, authors: Seq[String])
+abstract case class Citation(title: String, authors: Seq[String], year: Int)
 {
    override def toString() = """"""" + title + """" by """ + authors.mkString(", ")
 }
+
+class Paper(title: String, authors: Seq[String], year: Int, val in: String) extends Citation(title, authors, year)
+class Book(title: String, authors: Seq[String], year: Int) extends Citation(title, authors, year)
+
 
 object Citation
 {

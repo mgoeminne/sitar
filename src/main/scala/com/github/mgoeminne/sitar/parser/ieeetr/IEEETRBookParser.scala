@@ -1,6 +1,6 @@
 package com.github.mgoeminne.sitar.parser.ieeetr
 
-import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
+import com.github.mgoeminne.sitar.parser.{Book, Citation, CitationParser}
 
 /**
   * ieeetr style for book citation
@@ -20,6 +20,6 @@ private[ieeetr] class IEEETRBookParser extends CitationParser
    def title: Parser[String]    = """[^.,]+""".r ^^ {case t => t.replaceAll("""\s+""", " ").stripSuffix(""", vol""")}
    def rest: Parser[Any]            = """.*""".r
 
-   def citation: Parser[Citation] = authors~editor~title~""",|\.""".r~rest ^^ { case a~e~t~sep~r => Citation(t, a) }
+   def citation: Parser[Book] = authors~editor~title~""",|\.""".r~rest ^^ { case a~e~t~sep~r => new Book(t, a, 42) }
 
 }

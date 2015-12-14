@@ -1,6 +1,6 @@
 package com.github.mgoeminne.sitar.parser.ieeetr
 
-import com.github.mgoeminne.sitar.parser.{Citation, ieeetr}
+import com.github.mgoeminne.sitar.parser.{Book, Citation, ieeetr}
 import org.scalatest.{FlatSpec, Matchers}
 
 class IEEETRBookTest extends FlatSpec with Matchers
@@ -12,10 +12,10 @@ class IEEETRBookTest extends FlatSpec with Matchers
       val citation = "H. Abut, ed., Vector Quantization. IEEE Press, 1990."
 
       p.parseAll(p.citation, citation) match {
-         case p.Success(matched: Citation,_) => {
+         case p.Success(matched: Book,_) => {
             matched.title shouldBe "Vector Quantization"
-            matched.authors.size shouldBe 1
-            matched.authors(0) shouldEqual "Abut"
+            matched.authors shouldEqual Seq("Abut")
+            matched.year shouldEqual 1990
          }
       }
    }
@@ -26,12 +26,9 @@ class IEEETRBookTest extends FlatSpec with Matchers
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
             matched.title shouldBe "Handbook of Econometrics"
-            matched.authors.size shouldBe 2
             matched.authors shouldEqual Seq("Heckman", "Leamer")
+            matched.year shouldEqual 2007
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -41,12 +38,9 @@ class IEEETRBookTest extends FlatSpec with Matchers
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
             matched.title shouldBe "Handbook of Econometrics"
-            matched.authors.size shouldBe 2
             matched.authors shouldEqual Seq("Heckman", "Leamer")
+            matched.year shouldEqual 2007
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -54,14 +48,11 @@ class IEEETRBookTest extends FlatSpec with Matchers
       val citation = "B. S. Bloom, J. T. Hastings, and G. F. Madaus, Handbook on Formative and Summative Evolution of Student Learning. New York: McGraw-Hill, 1971."
 
       p.parseAll(p.citation, citation) match {
-         case p.Success(matched: Citation,_) => {
+         case p.Success(matched: Book,_) => {
             matched.title shouldBe "Handbook on Formative and Summative Evolution of Student Learning"
-            matched.authors.size shouldBe 3
             matched.authors shouldEqual Seq("Bloom", "Hastings", "Madaus")
+            matched.year shouldBe 1971
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 }

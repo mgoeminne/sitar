@@ -13,8 +13,8 @@ class ACMthesisTest extends FlatSpec with Matchers
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
             matched.title shouldBe "Managing software evolution in embedded systems"
-            matched.authors.size shouldBe 1
-            matched.authors(0) shouldBe "Spek"
+            matched.authors shouldEqual Seq("Spek")
+            matched.year shouldEqual 2010
          }
 
          case p.Failure(msg,_) => fail("Parsing failed : " + msg)

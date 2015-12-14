@@ -3,7 +3,7 @@ package com.github.mgoeminne.sitar
 import java.io.{InputStream, FileInputStream, File}
 import java.net.URL
 
-import com.github.mgoeminne.sitar.parser.{Citation, ieeetr, acm}
+import com.github.mgoeminne.sitar.parser.{Book, Citation, ieeetr, acm}
 
 import org.apache.pdfbox.pdfparser.PDFParser
 import org.apache.pdfbox.pdmodel.PDDocument
@@ -49,7 +49,7 @@ object Main
 
           val url = Option(entry.select("div#gs_ggsW0").first())
                      .map(element => element.select("a[href]").first.attr("abs:href"))
-         (Citation(title, authors) , url)
+         (new Book(title, authors, 42) , url)
       })
 
       candidates.find(c => Citation.similar(c._1, p) && c._2.isDefined)
@@ -58,8 +58,8 @@ object Main
 
    def main(args: Array[String])
    {
-      val paper = Citation("A study of library migration in java software",
-                        Seq("Teyton", "Falleri", "Palyart", "Blanc"))
+      // val paper = Citation("A study of library migration in java software",
+      //                  Seq("Teyton", "Falleri", "Palyart", "Blanc"))
 
       val url = new URL("http://arxiv.org/pdf/1306.6262")
       //extractCitations(url.openStream())

@@ -1,6 +1,6 @@
 package com.github.mgoeminne.sitar.parser.ieeetr
 
-import com.github.mgoeminne.sitar.parser.{Citation, ieeetr}
+import com.github.mgoeminne.sitar.parser.{Book, Citation, ieeetr}
 import org.scalatest.{FlatSpec, Matchers}
 
 
@@ -12,14 +12,11 @@ class IEEETRTechnicalReportTest extends FlatSpec with Matchers
       val citation = "B. Vanderose, “Towards a model-centric quality assessment: the mocqa approach,” tech. rep., University of Namur, January 2010."
 
       p.parseAll(p.citation, citation) match {
-         case p.Success(matched: Citation,_) => {
+         case p.Success(matched: Book,_) => {
             matched.title shouldBe "Towards a model-centric quality assessment: the mocqa approach"
-            matched.authors.size shouldBe 1
-            matched.authors(0) shouldEqual "Vanderose"
+            matched.authors shouldEqual Seq("Vanderose")
+            matched.year shouldEqual 2010
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -29,12 +26,9 @@ class IEEETRTechnicalReportTest extends FlatSpec with Matchers
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
             matched.title shouldBe "The title of the work"
-            matched.authors.size shouldBe 2
             matched.authors shouldEqual Seq("Lambert", "Doe")
+            matched.year shouldBe 1993
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -42,14 +36,11 @@ class IEEETRTechnicalReportTest extends FlatSpec with Matchers
       val citation = "A. K. Jain, L. Hong, and S. Pankanti, “Biometrics: Promising frontiers for emerging identification market,” Tech. Rep. MSU-CSE-00-2, Department of Computer Science, Michigan State University, East Lansing, Michigan, February 2000."
 
       p.parseAll(p.citation, citation) match {
-         case p.Success(matched: Citation,_) => {
+         case p.Success(matched: Book,_) => {
             matched.title shouldBe "Biometrics: Promising frontiers for emerging identification market"
-            matched.authors.size shouldBe 3
             matched.authors shouldEqual Seq("Jain", "Hong", "Pankanti")
+            matched.year shouldEqual 2000
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 }

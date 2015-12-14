@@ -1,6 +1,6 @@
 package com.github.mgoeminne.sitar.parser.acm
 
-import com.github.mgoeminne.sitar.parser.{Citation}
+import com.github.mgoeminne.sitar.parser.{Book, Citation}
 import org.scalatest.{FlatSpec, Matchers}
 
 class ACMBookTest extends FlatSpec with Matchers
@@ -9,17 +9,14 @@ class ACMBookTest extends FlatSpec with Matchers
 
 
    "One author book citation" should "be correctly parsed" in {
-      val citation = "Ross, S. M. On the time to first failure in multicomponent exponential reliability systems. Stochastic Processes and their Applications 4, 2 (1976), 167 – 173."
+      val citation = "Martin, R. C. Clean Code: A handbook of agile software craftsmanship. Prentice Hall, 2009."
 
       p.parseAll(p.citation, citation) match {
-         case p.Success(matched: Citation,_) => {
-            matched.title shouldBe "On the time to first failure in multicomponent exponential reliability systems"
-            matched.authors.size shouldBe 1
-            matched.authors(0) shouldEqual "Ross"
+         case p.Success(matched: Book,_) => {
+            matched.title shouldBe "Clean Code: A handbook of agile software craftsmanship"
+            matched.authors shouldEqual Seq("Martin")
+            matched.year shouldBe 2009
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -27,14 +24,11 @@ class ACMBookTest extends FlatSpec with Matchers
       val citation = "Heckman, J., and Leamer, E., Eds. Handbook of Econometrics. Elsevier, 2007."
 
       p.parseAll(p.citation, citation) match {
-         case p.Success(matched: Citation,_) => {
+         case p.Success(matched: Book,_) => {
             matched.title shouldBe "Handbook of Econometrics"
-            matched.authors.size shouldBe 2
             matched.authors shouldEqual Seq("Heckman", "Leamer")
+            matched.year shouldBe 2007
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -42,14 +36,11 @@ class ACMBookTest extends FlatSpec with Matchers
       val citation = "Heckman, J., and Leamer, E., Eds. Handbook of Econometrics, vol. 6 of Handbook of Econometrics. Elsevier, 2007."
 
       p.parseAll(p.citation, citation) match {
-         case p.Success(matched: Citation,_) => {
+         case p.Success(matched: Book,_) => {
             matched.title shouldBe "Handbook of Econometrics"
-            matched.authors.size shouldBe 2
             matched.authors shouldEqual Seq("Heckman", "Leamer")
+            matched.year shouldBe 2007
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -59,12 +50,9 @@ class ACMBookTest extends FlatSpec with Matchers
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
             matched.title shouldBe "Handbook on Formative and Summative Evolution of Student Learning"
-            matched.authors.size shouldBe 3
             matched.authors shouldEqual Seq("Bloom", "Hastings", "Madaus")
+            matched.year shouldBe 1971
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 }

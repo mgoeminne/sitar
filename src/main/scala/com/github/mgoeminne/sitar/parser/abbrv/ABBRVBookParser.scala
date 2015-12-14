@@ -1,6 +1,6 @@
 package com.github.mgoeminne.sitar.parser.abbrv
 
-import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
+import com.github.mgoeminne.sitar.parser.{Book, Citation, CitationParser}
 
 private[abbrv] class ABBRVBookParser extends CitationParser
 {
@@ -15,6 +15,6 @@ private[abbrv] class ABBRVBookParser extends CitationParser
 
    def title: Parser[String]    = """((?!\.\s).)*""".r
    def rest: Parser[Any]     = """.*""".r
-   def citation: Parser[Citation] = authors~opt(""", Eds?\.""".r)~title~"."~rest ^^ { case a~e~t~"."~r => Citation(t, a) }
+   def citation: Parser[Book] = authors~opt(""", Eds?\.""".r)~title~"."~rest ^^ { case a~e~t~"."~r => new Book(t, a, 42) }
 
 }

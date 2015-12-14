@@ -1,6 +1,6 @@
 package com.github.mgoeminne.sitar.parser.acm
 
-import com.github.mgoeminne.sitar.parser.{Citation}
+import com.github.mgoeminne.sitar.parser.{Book, Paper, Citation}
 import org.scalatest.{FlatSpec, Matchers}
 
 
@@ -14,12 +14,9 @@ class ACMTechnicalReportTest extends FlatSpec with Matchers
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
             matched.title shouldBe "Towards a model-centric quality assessment: the mocqa approach"
-            matched.authors.size shouldBe 1
-            matched.authors(0) shouldEqual "Vanderose"
+            matched.authors shouldEqual Seq("Vanderose")
+            matched.year shouldEqual 2010
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -29,12 +26,9 @@ class ACMTechnicalReportTest extends FlatSpec with Matchers
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
             matched.title shouldBe "The title of the work"
-            matched.authors.size shouldBe 2
             matched.authors shouldEqual Seq("Lambert", "Doe")
+            matched.year shouldEqual 1993
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 
@@ -44,12 +38,9 @@ class ACMTechnicalReportTest extends FlatSpec with Matchers
       p.parseAll(p.citation, citation) match {
          case p.Success(matched: Citation,_) => {
             matched.title shouldBe "Biometrics: Promising frontiers for emerging identification market"
-            matched.authors.size shouldBe 3
             matched.authors shouldEqual Seq("Jain", "Hong", "Pankanti")
+            matched.year shouldEqual 2000
          }
-
-         case p.Failure(msg,_) => fail("Parsing failed : " + msg)
-         case p.Error(msg,_) => fail("Parsing error : " + msg)
       }
    }
 }

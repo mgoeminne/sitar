@@ -1,6 +1,6 @@
 package com.github.mgoeminne.sitar.parser.apalike
 
-import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
+import com.github.mgoeminne.sitar.parser.{Book, Citation, CitationParser}
 
 /**
   * apalike style for book citation
@@ -25,7 +25,7 @@ private[apalike] class ApalikeBookParser extends CitationParser
    def title = """[^\.,]+""".r ^^ { case t => println(t); t}
 
    def rest: Parser[Any]     = """.*""".r
-   def citation: Parser[Citation] = authors~editor~year~title~rest ^^ { case a~e~y~t~r => {
-      Citation(t, a)
+   def citation: Parser[Book] = authors~editor~year~title~rest ^^ { case a~e~y~t~r => {
+      new Book(t, a, 42)
    } }
 }

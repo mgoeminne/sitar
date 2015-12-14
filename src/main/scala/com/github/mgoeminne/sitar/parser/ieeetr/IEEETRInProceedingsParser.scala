@@ -1,6 +1,6 @@
 package com.github.mgoeminne.sitar.parser.ieeetr
 
-import com.github.mgoeminne.sitar.parser.{Citation, CitationParser}
+import com.github.mgoeminne.sitar.parser.{Paper, Citation, CitationParser}
 
 private[ieeetr] class IEEETRInProceedingsParser extends CitationParser
 {
@@ -10,5 +10,5 @@ private[ieeetr] class IEEETRInProceedingsParser extends CitationParser
 
   def title: Parser[String]    = """[^”]+""".r ^^ {case t => t.stripSuffix(",")}
   def rest: Parser[Any]     = """.*""".r
-  def citation: Parser[Citation] = authors~","~"“"~title~"”"~rest ^^ { case a~","~"“"~t~"”"~r => Citation(t, a) }
+  def citation: Parser[Paper] = authors~","~"“"~title~"”"~rest ^^ { case a~","~"“"~t~"”"~r => new Paper(t, a, 42, "youhou") }
 }
